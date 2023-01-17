@@ -28,6 +28,7 @@ See this [stack overflow discussion](https://stackoverflow.com/a/21588642).
 # perf Dockerfile
 
 To build: `docker build -f Dockerfile.perf --tag pyperf:latest .`
+
 To run: `docker run -it --rm --privileged --mount type=bind,source=${PWD},target=/perf/to_local pyperf:latest bash`
 
 # perf Commands
