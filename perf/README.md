@@ -8,11 +8,12 @@ This repo highlights some `perf` goodness. It also provides the docker image I u
 
 Before python 3.12 if we used `perf` to profile our code we wouldn't see our python function names:
 
-![perf report with python symbols](./perf_with_python.png)
+![perf report without python symbols](./perf_without_python.png)
+
 
 Now if we do the same thing, we can see them. This is much better!
 
-![perf report without python symbols](./perf_without_python.png)
+![perf report with python symbols](./perf_with_python.png)
 
 # Running docker image
 
@@ -43,9 +44,23 @@ perf record -F 99 -g -- python slow.py
 perf report -g -i perf.data
 
 # Create flamegraph svg on local directory
-perf_5.10 script > out.perf
+perf script > out.perf
 /FlameGraph/stackcollapse-perf.pl out.perf > out.folded
-/FlameGraph/flamegraph.pl out.folded > to_local/perf_example.svg
+/FlameGraph/flamegraph.pl out.folded > to_local/flame.svg
 ```
 
 To see the profiling report without python symbols, restart the docker image, turn off python perf support, `unset PYTHONPERFSUPPORT`, and rerun the commands above.
+
+# Using this image to run perf on your own python files
+
+We'll call the directory you ran the `docker run` command the "mounted host directory". This directory is accessbile in your docker container at `/perf/to_local`. If you want to run `perf` against one of your own python files, you can put it in mounted host directory and then run `perf` from the `/perf/to_local`. For example:
+
+```
+cd /perf/to_local/
+perf record -F 99 -g -- python <your_python_file.py>
+perf script > out.perf
+/FlameGraph/stackcollapse-perf.pl out.perf > out.folded
+/FlameGraph/flamegraph.pl out.folded > flame.svg
+```
+
+The generated `perf.data`, `out.perf`, `out.folged`, `flame.svg` are accessible in the docker container at `/perf/to_local` and outside the docker container in the mounted host directroy.
