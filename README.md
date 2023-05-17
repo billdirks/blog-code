@@ -1,2 +1,2 @@
-# python_performance_and_debugging
-python peformance and debugging experiments
+# blog-code
+Code to support blog posts and other expository writing.
