@@ -63,4 +63,4 @@ perf script > out.perf
 /FlameGraph/flamegraph.pl out.folded > flame.svg
 ```
 
-The generated `perf.data`, `out.perf`, `out.folged`, `flame.svg` are accessible in the docker container at `/perf/to_local` and outside the docker container in the mounted host directroy.
+The generated `perf.data`, `out.perf`, `out.folded`, `flame.svg` are accessible in the docker container at `/perf/to_local` and outside the docker container in the mounted host directroy.
