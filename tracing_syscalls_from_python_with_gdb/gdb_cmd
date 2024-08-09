@@ -1,0 +1,12 @@
+set pagination off
+
+catch syscall sendmmsg
+run
+
+while 1
+  py-bt
+  continue
+end
+
+# This deletes all breakpoints
+delete
